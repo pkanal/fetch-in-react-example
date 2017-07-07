@@ -1,7 +1,13 @@
 import { combineEpics } from 'redux-observable';
 
-const pokemonEpic = action$ => action$;
+import { FETCH_POKEMON, setPokemon } from '../actions';
+import { fetchPokemon } from '../api/pokemon';
+
+const fetchPokemonEpic = action$ =>
+  action$.ofType(FETCH_POKEMON)
+  .mergeMap(action => fetchPokemon(action.payload))
+  .map(response => setPokemon(response));
 
 export default combineEpics(
-  // pokemonEpic
+  fetchPokemonEpic
 )

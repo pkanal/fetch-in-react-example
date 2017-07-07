@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 
-import { inputChange } from './actions';
+import { inputChange, fetchPokemon } from './actions';
 
 class App extends Component {
   constructor(props) {
@@ -15,8 +15,8 @@ class App extends Component {
   }
 
   render() {
-    const { textInput, onTextInputChange } = this.props;
-    const { pokemon, error } = this.state;
+    const { textInput, onTextInputChange, onSearchPokemon, pokemon } = this.props;
+    const { error } = this.state;
     return (
       <div className="App">
         <div className="App-header">
@@ -39,7 +39,7 @@ class App extends Component {
             />
             <button
               className="submit-button"
-              onClick={ this.getPokemon }
+              onClick={ () => onSearchPokemon(textInput) }
             >
               Search Pokemon
             </button>
@@ -85,9 +85,12 @@ class App extends Component {
 
 const mapStateToProps = (state) => ({
   textInput: state.textInput,
+  pokemon: state.pokemon,
 })
+
 const actions = {
   onTextInputChange: inputChange,
+  onSearchPokemon: fetchPokemon,
 }
 
 export default connect(mapStateToProps, actions)(App);

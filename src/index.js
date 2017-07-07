@@ -7,6 +7,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configure-store';
+import 'rxjs';
 
 const store = configureStore()
 
